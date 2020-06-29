@@ -15,13 +15,17 @@
                     text-color="#fff"
                     active-text-color="#ffd04b"
                     router>
-                <el-menu-item index="user">用户中心</el-menu-item>
+                <el-submenu index="1">
+                    <template slot="title">用户中心</template>
+                    <el-menu-item index="user">用户管理</el-menu-item>
+                    <el-menu-item index="/">退出</el-menu-item>
+                </el-submenu>
                 <el-submenu index="2">
                     <template slot="title">需求中心</template>
-                    <el-menu-item index="">需求展示</el-menu-item>
+                    <el-menu-item index="demands">全部需求</el-menu-item>
                 </el-submenu>
                 <el-menu-item index="3" disabled>消息中心</el-menu-item>
-                <el-menu-item index="4"><a href="https://element.eleme.cn/#/zh-CN" target="_self">技术支持</a>
+                <el-menu-item><a href="https://element.eleme.cn/#/zh-CN" target="_self">技术支持</a>
                 </el-menu-item>
             </el-menu>
         </div>
@@ -36,15 +40,32 @@
     export default {
         data() {
             return {
-                activeIndex: ''
+                activeIndex: 'demands'
             }
         },
+        watch: {
+            $route() {
+                this.initRouter()
+            }
+        },
+        created() {
+            this.initRouter()
+        },
         methods: {
+            initRouter() {
+                const routerName = this.$router.currentRoute.name
+                this.activeIndex = routerName
+                this.$router.push({
+                    name: routerName
+                })
+            },
             handleSelect(key, keyPath) {
-                console.log(key, keyPath);
+                if (keyPath == "/") {
+                    this.$router.replace('/')
+                }
             }
         }
-    };
+    }
 </script>
 
 <style lang="less" scoped>

@@ -11,20 +11,24 @@ export default new Router({
         {
             path: "/",
             name: "login",
-            component: login
+            component: login,
+            meta: {title: "用户登录"}
         },
         {
             path: "/demand",
             name: "demand",
+            redirect: '/',
             component: () => import('./views/layout.vue'),
             children: [{
-                path: "",
+                path: "demands",
                 name: "demands",
-                component: () => import('./views/demands.vue')
+                component: () => import('./views/demands.vue'),
+                meta: {title: "需求中心"}
             }, {
                 path: "user",
                 name: "user",
-                component: () => import('./views/user.vue')
+                component: () => import('./views/user.vue'),
+                meta: {title: "用户中心"}
             }]
         }
     ]

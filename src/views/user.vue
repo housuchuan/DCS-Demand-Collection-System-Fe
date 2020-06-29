@@ -31,7 +31,7 @@
                 </el-table-column>
                 <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
-                        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">密码更改</el-button>
+                        <el-button size="mini" @click="dialogFormVisible = true">密码更改</el-button>
                         <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除
                         </el-button>
                     </template>
@@ -134,26 +134,6 @@
             }
         },
         methods: {
-            handleEdit(index, row) {
-                this.$prompt('', '  新密码', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    inputValidator(val) {
-                        if (!val) {
-                            return '请输入密码'
-                        } else if (!/^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]+$/.exec(val)) {
-                            return '密码强度过低，请重新输入'
-                        }
-                    },
-                    inputType: "password"
-                }).then(({value}) => {
-                    this.$message({
-                        type: 'success',
-                        message: '你的邮箱是: ' + value
-                    });
-                }).catch(() => {
-                })
-            },
             handleDelete(index, row) {
                 this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
                     confirmButtonText: '确定',
